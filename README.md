@@ -55,7 +55,8 @@ Maestro-Excel-Data-Driven-Framework/
 ├── package.json
 ├── package-lock.json
 ├── README.md
-└── run.bat
+├── run-end2end.bat
+└── run-server.bat
 ```
 
 ---
