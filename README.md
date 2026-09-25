@@ -64,7 +64,7 @@ Maestro-Excel-Data-Driven-Framework/
 
 Before using the framework, make sure you have:
 
-- Maestro Studio and CLI installed
+- `Maestro Studio` and `Maestro CLI` installed
 - Node.js installed
 - Java installed (required by Maestro)
 - A mobile device or emulator connected
