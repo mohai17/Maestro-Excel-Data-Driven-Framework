@@ -160,19 +160,53 @@ Scripts/
 
 ---
 
-### 7. Execute the Framework
+## 7. Execute the Framework
 
-Open the project directory and double-click:
+### 7.1 Run Maestro Server (For YAML Script Development)
+
+If you are developing or debugging YAML scripts in Maestro Studio, start the Maestro server before executing any scripts.
+
+#### Method 1: Run from File Explorer
+
+Navigate to the project root directory and double-click:
 
 ```text
-run.bat
+run-server.bat
 ```
 
-Or run manually:
+#### Method 2: Run from Command Prompt
+
+Open Command Prompt in the project directory and run:
 
 ```cmd
-run.bat
+run-server.bat
 ```
+
+> **Note:** Ensure the Maestro server is running successfully before opening or executing YAML scripts in Maestro Studio.
+
+---
+
+### 7.2 Execute End-to-End Test Suite
+
+After all YAML scripts have been completed and validated, execute the complete end-to-end automation flow.
+
+#### Method 1: Run from File Explorer
+
+Navigate to the project root directory and double-click:
+
+```text
+run-end2end.bat
+```
+
+#### Method 2: Run from Command Prompt
+
+Open Command Prompt in the project directory and run:
+
+```cmd
+run-end2end.bat
+```
+
+> **Note:** This command executes the full end-to-end test suite using all configured YAML automation scripts and it will generate HTML-Detailed report.
 
 The framework will automatically:
 
@@ -198,6 +232,24 @@ The framework will automatically:
 ---
 
 ## Example YAML Usage
+
+> **Note:** Use the Excel column headers to access row data dynamically.
+>
+> **Syntax:**
+>
+> ```text
+> ${output.ColumnHeader}
+> ```
+>
+> **Example:**
+>
+> If your Excel file contains a column named `Username`, access its value using:
+>
+> ```text
+> ${output.Username}
+> ```
+>
+> Here, `Username` represents the exact column header name from the Excel file.
 
 ```yaml
 appId: com.example.app
