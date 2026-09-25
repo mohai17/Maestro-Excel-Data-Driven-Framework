@@ -10,13 +10,8 @@ package-lock.json
 # ==========================================
 # Generated Test Data & Reports
 # ==========================================
-# Ignore generated JSON test data (re-generated on each run)
 
 
-# Ignore generated test reports and logs
-reports/
-*.xml
-*.log
 
 # ==========================================
 # OS & IDE System Files
