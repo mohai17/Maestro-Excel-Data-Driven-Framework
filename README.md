@@ -354,7 +354,8 @@ This project is licensed under the MIT License.
 **Md. Mohai Minul Islam**
 
 Software QA Engineer | Test Automation Engineer
-email: mohai.cse@gmail.com
+
+Email: mohai.cse@gmail.com
 
 Built to bring Excel Data-Driven Testing capabilities to the Maestro ecosystem.
 
