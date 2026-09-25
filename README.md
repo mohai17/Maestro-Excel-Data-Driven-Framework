@@ -95,7 +95,7 @@ Connect your Android or iOS device and verify that Maestro detects the device su
 
 ### 4. Add Test Data
 
-Place your Excel file inside the `TestData` directory.
+Place your Excel file with test data inside the `TestData` directory.
 
 Example:
 
@@ -109,6 +109,29 @@ TestData/
 ### 5. Create a Maestro YAML Flow
 
 Create a new Maestro YAML flow inside the `Flows` folder.
+> **Note:** Ensure the Maestro Server (run-server.bat) is running successfully before opening or executing YAML scripts in Maestro Studio.
+
+### 5.1 Run Maestro Server (run-server.bat) (For YAML Script Development)
+
+If you are developing or debugging YAML scripts in Maestro Studio, start the Maestro server (run-server.bat) before executing any scripts.
+
+#### Method 1: Run from File Explorer
+
+Navigate to the project root directory and double-click:
+
+```text
+run-server.bat
+```
+
+#### Method 2: Run from Command Prompt
+
+Open Command Prompt in the project directory and run:
+
+```cmd
+run-server.bat
+```
+
+> **Note:** Ensure the Maestro server (run-server.bat) is running successfully before opening or executing YAML scripts in Maestro Studio.
 
 Example:
 
