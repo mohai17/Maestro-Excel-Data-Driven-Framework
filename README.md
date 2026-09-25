@@ -80,7 +80,8 @@ Before using the framework, make sure you have:
 Clone the framework inside your Maestro Studio project source folder.
 
 ```bash
-git clone https://github.com/your-username/maestro-excel-data-driver.git
+git clone https://github.com/your_user_name/Maestro-Excel-Data-Driven-Framework.git
+
 ```
 
 ---
