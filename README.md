@@ -111,7 +111,7 @@ TestData/
 Create a new Maestro YAML flow inside the `Flows` folder.
 > **Note:** Ensure the Maestro Server (run-server.bat) is running successfully before opening or executing YAML scripts in Maestro Studio.
 
-### 5.1 Run Maestro Server (run-server.bat) (For YAML Script Development)
+### 5.1 Run Maestro Server (run-server.bat) For YAML Script Development
 
 If you are developing or debugging YAML scripts in Maestro Studio, start the Maestro server (run-server.bat) before executing any scripts.
 
@@ -185,7 +185,7 @@ Scripts/
 
 ## 7. Execute the Framework
 
-### 7.1 Run Maestro Server (For YAML Script Development)
+### 7.1 Run Maestro Server (run-server.bat) For YAML Script Development
 
 If you are developing or debugging YAML scripts in Maestro Studio, start the Maestro server before executing any scripts.
 
