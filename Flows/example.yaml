@@ -1,0 +1,15 @@
+appId: com.example.app
+---
+- launchApp:
+    clearState: true
+
+- runScript: "../Scripts/ExampleData/Example_LoginData.js"
+
+- tapOn: "Get Started"
+- tapOn: "User Name"
+- inputText: ${output.Username}
+- tapOn: "Done"
+- tapOn: "Password"
+- inputText: ${output.Password}
+- tapOn: "Done"
+- tapOn: "Log In"

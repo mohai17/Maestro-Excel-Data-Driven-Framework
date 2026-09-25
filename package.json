@@ -1,0 +1,21 @@
+{
+  "name": "maestro-excel-automation",
+  "version": "1.0.0",
+  "description": "Maestro UI tests driven by Excel data",
+  "main": "convert.js",
+  "scripts": {
+    "convert": "node convert.js",
+    "mock:server": "node server.js",
+    "maestro:run": "maestro test .maestro/login-flow.yaml",
+    "test": "concurrently -k -s first \"npm run mock:server\" \"wait-on http://localhost:8080 && npm run maestro:run\""
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5",
+    "xunit-viewer": "^10.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "json-server": "^0.17.4",
+    "wait-on": "^7.2.0"
+  }
+}
