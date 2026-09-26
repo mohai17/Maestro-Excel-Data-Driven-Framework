@@ -1,3 +1,7 @@
+:: Maestro Excel Data Driven Framework
+:: Copyright 2026 Md. Mohai Minul Islam
+:: Licensed under Apache License 2.0
+
 @echo off
 setlocal enabledelayedexpansion
 

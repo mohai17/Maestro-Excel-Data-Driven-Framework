@@ -1,3 +1,10 @@
+/*
+ * Maestro Excel Data Driven Framework
+ *
+ * Copyright (c) 2026 Md. Mohai Minul Islam
+ * Licensed under Apache License 2.0
+ */
+
 const XLSX = require('xlsx');
 const fs = require('fs');
 const path = require('path');
