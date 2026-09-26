@@ -431,9 +431,9 @@ This project is licensed under the Apache License 2.0.
 
 Founder and original creator of the Maestro Excel Data Driven Framework.
 
-This project was originally conceived, designed, and developed by
-Md. Mohai Minul Islam and was later released as open source under
-the Apache License 2.0.
+The Maestro Excel Data Driven Framework was originally designed and
+developed by **Md. Mohai Minul Islam** and is released as open source
+under the Apache License 2.0.
 
 ---
 
