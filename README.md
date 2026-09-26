@@ -68,6 +68,7 @@ Before using the framework, make sure you have:
 - `Maestro Studio` and `Maestro CLI` installed
 - Node.js installed
 - Java installed (required by Maestro)
+- Android Studio with SDK
 - A mobile device or emulator connected
 - Microsoft Excel file containing test data
 - Windows OS (for `run.bat` execution)
@@ -90,7 +91,7 @@ Launch Maestro Studio.
 
 ### 3. Connect Your Mobile Device
 
-Connect your Android or iOS device and verify that Maestro detects the device successfully.
+Connect your Android device and verify that Maestro detects the device successfully.
 
 ---
 
