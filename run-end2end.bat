@@ -79,10 +79,10 @@ for /R "%JSON_FOLDER%" %%F in (*.json) do (
         echo // Auto-generated setup file for !FILE_NAME!
         echo var response = http.get('!HTTP_URL!'^);
         echo var data = response ^&^& response.body ? JSON.parse(response.body^) : [];
-        echo.
+        echo(
         echo var index = typeof ROW_NO ^^!= 'undefined' ? parseInt(ROW_NO, 10^) - 1 : 0;
         echo var row = Array.isArray(data^) ? data[index] : null;
-        echo.
+        echo(
         echo if (row^) {
         echo   Object.keys(row^).forEach(function(key^) {
         echo     output[key] = row[key] ^^!= null ? String(row[key]^) : "";
