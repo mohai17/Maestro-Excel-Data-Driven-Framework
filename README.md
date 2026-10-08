@@ -2,6 +2,8 @@
 
 🚀 Enable Excel-Based Data-Driven Testing in Maestro Mobile Automation
 
+## New Update: Multiple Excel Row Execution Support
+
 Official Maestro does not natively support Excel data-driven testing. This framework extends Maestro's capabilities by automatically converting Excel test data into JavaScript data providers that can be consumed directly inside Maestro YAML flows.
 
 With this framework, automation engineers can maintain test data in Excel sheets and execute the same Maestro flow with multiple datasets without manually editing YAML files.
