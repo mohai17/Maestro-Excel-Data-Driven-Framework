@@ -1,0 +1,743 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Maestro Combined Report</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#f4f7fb;
+}
+
+.header{
+    background:
+        linear-gradient(
+            135deg,
+            #0f172a,
+            #2563eb
+        );
+    color:white;
+    padding:25px 35px;
+}
+
+.header h1{
+    margin:0;
+    font-size:30px;
+}
+
+.header p{
+    margin-top:8px;
+    opacity:.9;
+}
+
+.stats{
+    padding:20px;
+    display:grid;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px,1fr)
+        );
+    gap:20px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:
+        0 4px 12px
+        rgba(0,0,0,.08);
+}
+
+.stat-value{
+    font-size:34px;
+    font-weight:700;
+}
+
+.stat-label{
+    margin-top:8px;
+    color:#666;
+}
+
+
+.toolbar{
+    padding:0 20px 20px;
+}
+
+.search-box{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #d1d5db;
+    font-size:15px;
+}
+
+.filters{
+    padding:0 20px 10px;
+}
+
+.filters button{
+    margin-right:10px;
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#2563eb;
+    color:white;
+}
+
+.report-card{
+    margin:20px;
+    border-radius:15px;
+    overflow:hidden;
+    background:white;
+    box-shadow:
+        0 4px 12px
+        rgba(0,0,0,.08);
+}
+
+.card-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px;
+
+    cursor:pointer;
+
+    background:white;
+}
+
+.card-header:hover{
+    background:#f8fafc;
+}
+
+.report-name{
+    font-size:17px;
+    font-weight:600;
+}
+
+.badge{
+    color:white;
+    font-size:13px;
+    font-weight:bold;
+    border-radius:20px;
+    padding:7px 14px;
+}
+
+.badge-pass{
+    background:#16a34a;
+}
+
+.badge-fail{
+    background:#dc2626;
+}
+
+.badge-unknown{
+    background:#64748b;
+}
+
+.report-content{
+    display:none;
+    background:white;
+}
+
+iframe{
+    width:100%;
+    border:none;
+    min-height:300px;
+    display:block;
+}
+
+.footer{
+    padding:30px;
+    color:#666;
+    text-align:center;
+}
+
+</style>
+
+<script>
+
+function toggleReport(id){
+
+    const el =
+        document.getElementById(id);
+
+    if(el.style.display==="block"){
+
+        el.style.display="none";
+
+    }else{
+
+        el.style.display="block";
+
+    }
+}
+
+function resizeFrame(frame){
+
+    try{
+
+        setTimeout(() => {
+
+            const doc =
+                frame.contentWindow.document;
+
+            const height =
+                Math.max(
+                    doc.body.scrollHeight,
+                    doc.documentElement.scrollHeight
+                );
+
+            frame.style.height =
+                (height + 20) + "px";
+
+        },300);
+
+    }catch(e){}
+}
+
+function searchReports(){
+
+    const value =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    document
+        .querySelectorAll(".report-card")
+        .forEach(card=>{
+
+            card.style.display =
+                card.dataset.file.includes(value)
+                ? "block"
+                : "none";
+        });
+}
+
+function filterStatus(status){
+
+    document
+        .querySelectorAll(".report-card")
+        .forEach(card=>{
+
+            if(
+                status === "ALL" ||
+                card.dataset.status === status
+            ){
+                card.style.display="block";
+            }else{
+                card.style.display="none";
+            }
+
+        });
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1>Combined Execution Report</h1>
+
+    <p>
+        Generated:
+        10/9/2026, 2:30:56 AM
+    </p>
+
+</div>
+
+<div class="stats">
+
+    <div class="stat-card">
+        <div class="stat-value">3</div>
+        <div class="stat-label">
+            Total Executions
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-value">3</div>
+        <div class="stat-label">
+            Passed
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">
+            Failed
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-value">
+            100.0%
+        </div>
+        <div class="stat-label">
+            Pass Rate
+        </div>
+    </div>
+
+</div>
+
+
+<div class="toolbar">
+
+    <input
+        id="search"
+        class="search-box"
+        type="text"
+        placeholder="🔍 Search reports..."
+        onkeyup="searchReports()">
+
+</div>
+
+<div class="filters">
+
+    <button onclick="filterStatus('ALL')">
+        All
+    </button>
+
+    <button onclick="filterStatus('PASS')">
+        Passed
+    </button>
+
+    <button onclick="filterStatus('FAIL')">
+        Failed
+    </button>
+
+</div>
+
+
+    <div class="report-card"
+         data-file="login_row1.html"
+         data-status="PASS">
+
+        <div class="card-header"
+             onclick="toggleReport('report0')">
+
+            <div class="report-name">
+                📄 login_Row1.html
+            </div>
+
+            <div>
+                <span class="badge badge-pass">
+                    PASS
+                </span>
+            </div>
+
+        </div>
+
+        <div id="report0" class="report-content">
+
+            <iframe
+                id="frame0"
+                srcdoc="<html>
+  <head>
+    <title>Maestro Test Report</title>
+    <link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;>
+  </head>
+  <body>
+    <div class=&quot;card mb-4&quot;>
+      <div class=&quot;card-body&quot;>
+        <h1 class=&quot;mt-5 text-center&quot;>Flow Execution Summary</h1>
+<br>Test Result: PASSED<br>Duration: 38.443s<br>Start Time: <time datetime=&quot;2026-10-09T02:28:02.838+06:00&quot;>Oct 9, 2026, 02:28:02 GMT+06:00</time><br><br>
+        <div class=&quot;card-group mb-4&quot;>
+          <div class=&quot;card&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Total number of Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>1</h3>
+            </div>
+          </div>
+          <div class=&quot;card text-white bg-danger&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Failed Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>0</h3>
+            </div>
+          </div>
+          <div class=&quot;card text-white bg-success&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Successful Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>1</h3>
+            </div>
+          </div>
+        </div>
+        <div class=&quot;card mb-4&quot;>
+          <div class=&quot;card-header&quot;>
+            <h5 class=&quot;mb-0&quot;><button class=&quot;btn btn-success&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#flow-0-login&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flow-0-login&quot;>login : SUCCESS</button></h5>
+          </div>
+          <div class=&quot;collapse&quot; id=&quot;flow-0-login&quot;>
+            <div class=&quot;card-body&quot;>
+              <p class=&quot;card-text&quot;>Status: SUCCESS<br>Duration: 38.406s<br>Start Time: <time datetime=&quot;2026-10-09T02:28:02.86+06:00&quot;>Oct 9, 2026, 02:28:02 GMT+06:00</time><br>File Name: login<br></p>
+              <h6 class=&quot;mt-3 mb-3&quot;>Test Steps (14)</h6>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>1. Define variables</span></span><span class=&quot;badge bg-light text-dark&quot;>10ms</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>2. Apply configuration</span></span><span class=&quot;badge bg-light text-dark&quot;>1ms</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>3. Launch app &amp;quot;com.example.app&amp;quot; with clear state</span></span><span class=&quot;badge bg-light text-dark&quot;>2.6s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>4. Run ../Scripts/ExampleData/Example_LoginData.js</span></span><span class=&quot;badge bg-light text-dark&quot;>2.0s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>5. Tap on &amp;quot;Get Started&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>3.6s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>6. Tap on &amp;quot;User Name&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.3s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>7. Input text example_1</span></span><span class=&quot;badge bg-light text-dark&quot;>3.1s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>8. Tap on &amp;quot;Done&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.2s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>9. Tap on &amp;quot;Password&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.3s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>10. Input text 12345</span></span><span class=&quot;badge bg-light text-dark&quot;>2.4s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>11. Tap on &amp;quot;Done&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.1s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>12. Tap on &amp;quot;Log In&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>2.9s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>13. Assert that &amp;quot;Server Problem or Wrong User Name/Password&amp;quot; is visible</span></span><span class=&quot;badge bg-light text-dark&quot;>2.1s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>14. Stop com.example.app</span></span><span class=&quot;badge bg-light text-dark&quot;>227ms</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>.step-item {
+    border-left: 3px solid #dee2e6;
+    padding-left: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.step-header {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.step-name {
+    font-weight: 500;
+}
+</style>
+      <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js&quot;></script>
+    </div>
+  </body>
+</html>
+"
+                loading="lazy"
+                onload="resizeFrame(this)">
+            </iframe>
+
+        </div>
+
+    </div>
+    
+    <div class="report-card"
+         data-file="login_row2.html"
+         data-status="PASS">
+
+        <div class="card-header"
+             onclick="toggleReport('report1')">
+
+            <div class="report-name">
+                📄 login_Row2.html
+            </div>
+
+            <div>
+                <span class="badge badge-pass">
+                    PASS
+                </span>
+            </div>
+
+        </div>
+
+        <div id="report1" class="report-content">
+
+            <iframe
+                id="frame1"
+                srcdoc="<html>
+  <head>
+    <title>Maestro Test Report</title>
+    <link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;>
+  </head>
+  <body>
+    <div class=&quot;card mb-4&quot;>
+      <div class=&quot;card-body&quot;>
+        <h1 class=&quot;mt-5 text-center&quot;>Flow Execution Summary</h1>
+<br>Test Result: PASSED<br>Duration: 37.951s<br>Start Time: <time datetime=&quot;2026-10-09T02:29:08.388+06:00&quot;>Oct 9, 2026, 02:29:08 GMT+06:00</time><br><br>
+        <div class=&quot;card-group mb-4&quot;>
+          <div class=&quot;card&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Total number of Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>1</h3>
+            </div>
+          </div>
+          <div class=&quot;card text-white bg-danger&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Failed Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>0</h3>
+            </div>
+          </div>
+          <div class=&quot;card text-white bg-success&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Successful Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>1</h3>
+            </div>
+          </div>
+        </div>
+        <div class=&quot;card mb-4&quot;>
+          <div class=&quot;card-header&quot;>
+            <h5 class=&quot;mb-0&quot;><button class=&quot;btn btn-success&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#flow-0-login&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flow-0-login&quot;>login : SUCCESS</button></h5>
+          </div>
+          <div class=&quot;collapse&quot; id=&quot;flow-0-login&quot;>
+            <div class=&quot;card-body&quot;>
+              <p class=&quot;card-text&quot;>Status: SUCCESS<br>Duration: 37.914s<br>Start Time: <time datetime=&quot;2026-10-09T02:29:08.41+06:00&quot;>Oct 9, 2026, 02:29:08 GMT+06:00</time><br>File Name: login<br></p>
+              <h6 class=&quot;mt-3 mb-3&quot;>Test Steps (14)</h6>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>1. Define variables</span></span><span class=&quot;badge bg-light text-dark&quot;>10ms</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>2. Apply configuration</span></span><span class=&quot;badge bg-light text-dark&quot;>1ms</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>3. Launch app &amp;quot;com.example.app&amp;quot; with clear state</span></span><span class=&quot;badge bg-light text-dark&quot;>3.0s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>4. Run ../Scripts/ExampleData/Example_LoginData.js</span></span><span class=&quot;badge bg-light text-dark&quot;>2.0s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>5. Tap on &amp;quot;Get Started&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>3.4s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>6. Tap on &amp;quot;User Name&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.5s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>7. Input text example_2</span></span><span class=&quot;badge bg-light text-dark&quot;>2.8s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>8. Tap on &amp;quot;Done&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.2s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>9. Tap on &amp;quot;Password&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.2s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>10. Input text 12346</span></span><span class=&quot;badge bg-light text-dark&quot;>2.5s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>11. Tap on &amp;quot;Done&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.3s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>12. Tap on &amp;quot;Log In&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>2.9s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>13. Assert that &amp;quot;Server Problem or Wrong User Name/Password&amp;quot; is visible</span></span><span class=&quot;badge bg-light text-dark&quot;>1.4s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>14. Stop com.example.app</span></span><span class=&quot;badge bg-light text-dark&quot;>190ms</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>.step-item {
+    border-left: 3px solid #dee2e6;
+    padding-left: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.step-header {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.step-name {
+    font-weight: 500;
+}
+</style>
+      <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js&quot;></script>
+    </div>
+  </body>
+</html>
+"
+                loading="lazy"
+                onload="resizeFrame(this)">
+            </iframe>
+
+        </div>
+
+    </div>
+    
+    <div class="report-card"
+         data-file="logout_row1.html"
+         data-status="PASS">
+
+        <div class="card-header"
+             onclick="toggleReport('report2')">
+
+            <div class="report-name">
+                📄 logout_Row1.html
+            </div>
+
+            <div>
+                <span class="badge badge-pass">
+                    PASS
+                </span>
+            </div>
+
+        </div>
+
+        <div id="report2" class="report-content">
+
+            <iframe
+                id="frame2"
+                srcdoc="<html>
+  <head>
+    <title>Maestro Test Report</title>
+    <link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;>
+  </head>
+  <body>
+    <div class=&quot;card mb-4&quot;>
+      <div class=&quot;card-body&quot;>
+        <h1 class=&quot;mt-5 text-center&quot;>Flow Execution Summary</h1>
+<br>Test Result: PASSED<br>Duration: 40.494s<br>Start Time: <time datetime=&quot;2026-10-09T02:30:13.833+06:00&quot;>Oct 9, 2026, 02:30:13 GMT+06:00</time><br><br>
+        <div class=&quot;card-group mb-4&quot;>
+          <div class=&quot;card&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Total number of Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>1</h3>
+            </div>
+          </div>
+          <div class=&quot;card text-white bg-danger&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Failed Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>0</h3>
+            </div>
+          </div>
+          <div class=&quot;card text-white bg-success&quot;>
+            <div class=&quot;card-body&quot;>
+              <h5 class=&quot;card-title text-center&quot;>Successful Flows</h5>
+              <h3 class=&quot;card-text text-center&quot;>1</h3>
+            </div>
+          </div>
+        </div>
+        <div class=&quot;card mb-4&quot;>
+          <div class=&quot;card-header&quot;>
+            <h5 class=&quot;mb-0&quot;><button class=&quot;btn btn-success&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#flow-0-logout&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;flow-0-logout&quot;>logout : SUCCESS</button></h5>
+          </div>
+          <div class=&quot;collapse&quot; id=&quot;flow-0-logout&quot;>
+            <div class=&quot;card-body&quot;>
+              <p class=&quot;card-text&quot;>Status: SUCCESS<br>Duration: 40.451s<br>Start Time: <time datetime=&quot;2026-10-09T02:30:13.864+06:00&quot;>Oct 9, 2026, 02:30:13 GMT+06:00</time><br>File Name: logout<br></p>
+              <h6 class=&quot;mt-3 mb-3&quot;>Test Steps (14)</h6>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>1. Define variables</span></span><span class=&quot;badge bg-light text-dark&quot;>12ms</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>2. Apply configuration</span></span><span class=&quot;badge bg-light text-dark&quot;>1ms</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>3. Launch app &amp;quot;com.example.app&amp;quot; with clear state</span></span><span class=&quot;badge bg-light text-dark&quot;>2.9s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>4. Run ../Scripts/ExampleData/Example_LogoutData.js</span></span><span class=&quot;badge bg-light text-dark&quot;>2.1s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>5. Tap on &amp;quot;Get Started&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>3.6s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>6. Tap on &amp;quot;User Name&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.4s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>7. Input text example_1</span></span><span class=&quot;badge bg-light text-dark&quot;>2.8s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>8. Tap on &amp;quot;Done&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>6.4s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>9. Tap on &amp;quot;Password&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.4s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>10. Input text 12345</span></span><span class=&quot;badge bg-light text-dark&quot;>2.4s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>11. Tap on &amp;quot;Done&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>4.5s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>12. Tap on &amp;quot;Log In&amp;quot;</span></span><span class=&quot;badge bg-light text-dark&quot;>3.2s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>13. Assert that &amp;quot;Server Problem or Wrong User Name/Password&amp;quot; is visible</span></span><span class=&quot;badge bg-light text-dark&quot;>1.3s</span></div>
+              </div>
+              <div class=&quot;step-item mb-2&quot;>
+                <div class=&quot;step-header d-flex justify-content-between align-items-center&quot;><span>✅ <span class=&quot;step-name&quot;>14. Stop com.example.app</span></span><span class=&quot;badge bg-light text-dark&quot;>183ms</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>.step-item {
+    border-left: 3px solid #dee2e6;
+    padding-left: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.step-header {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.step-name {
+    font-weight: 500;
+}
+</style>
+      <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js&quot;></script>
+    </div>
+  </body>
+</html>
+"
+                loading="lazy"
+                onload="resizeFrame(this)">
+            </iframe>
+
+        </div>
+
+    </div>
+    
+
+<div class="footer">
+    Generated by Open Source Customized Report Generator
+</div>
+
+</body>
+</html>
